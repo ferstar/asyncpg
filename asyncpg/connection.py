@@ -2352,6 +2352,13 @@ def _detect_server_capabilities(server_version, connection_settings):
         plpgsql = False
         sql_reset = False
         sql_close_all = False
+    elif 'gauss' in getattr(connection_settings, 'application_name', '').lower():
+        # GaussDB detected.
+        advisory_locks = True
+        notifications = False
+        plpgsql = False
+        sql_reset = True
+        sql_close_all = True
     else:
         # Standard PostgreSQL server assumed.
         advisory_locks = True
